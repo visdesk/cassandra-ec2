@@ -1,9 +1,7 @@
-Cassandra EC2
+Cassandra EC2 
 -------------
 
-This collection of scripts allows you to run Cassandra clusters on Amazon.com's Elastic Compute Cloud (EC2) service described at:
-
-  http://aws.amazon.com/ec2
+This collection of scripts allows you to run Cassandra clusters on Amazon.com's Elastic Compute Cloud (EC2) service described at: http://aws.amazon.com/ec2
 
 
 Getting started
@@ -22,6 +20,13 @@ To start a cluster:
    d) Change dirs to point to somewhere in /mnt/cassandra
    e) Remove value in listenaddress to allow Cassandra to bind to something other then localhost
 5) Run start-cassandra-instances with clustername and the configuration file
+
+
+How to contribute
+-----------------
+
+This project is very much in the early days. Feel free to make any changes and contribute them back.
+Check out the code at http://github.com/johanoskarsson/cassandra-ec2
 
 
 Credits
