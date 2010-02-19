@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Launch an EC2 cluster of Cassandra instances.
+
+# Import variables
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+
+if [ -z $1 ]; then
+  echo "Cluster name required!"
+  exit -1
+fi
+
+if [ -z $2 ]; then
+  echo "Must specify the number of nodes to start."
+  exit -1
+fi
+
+CLUSTER=$1
+NO_INSTANCES=$2
+
+# Import variables
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+. "$bin"/cassandra-ec2-env.sh
+
+if [ -z $AWS_ACCOUNT_ID ]; then
+  echo "Please set AWS_ACCOUNT_ID in $bin/cassandra-ec2-env.sh."
+  exit -1
+fi
+
+ec2-describe-group | egrep "[[:space:]]$CLUSTER[[:space:]]" > /dev/null
+if [ ! $? -eq 0 ]; then
+  echo "Creating group $CLUSTER"
+  ec2-add-group $CLUSTER -d "Group for Cassandra nodes."
+  ec2-authorize $CLUSTER -o $CLUSTER -u $AWS_ACCOUNT_ID
+  ec2-authorize $CLUSTER -p 22    # ssh
+fi
+
+# Finding Cassandra image
+AMI_IMAGE=`ec2-describe-images -a | grep $S3_BUCKET | grep $CASSANDRA_VERSION | grep $ARCH | grep available | awk '{print $2}'`
+
+# Start slaves
+echo "Adding $NO_INSTANCES node(s) to cluster group $CLUSTER with AMI $AMI_IMAGE"
+#ec2-run-instances $AMI_IMAGE -n "$NO_INSTANCES" -g "$CLUSTER" -k "$KEY_NAME" -f "$bin"/$USER_DATA_FILE.slave -t "$INSTANCE_TYPE" -z "$MASTER_ZONE" $KERNEL_ARG | grep INSTANCE | awk '{print $2}'
+ec2-run-instances $AMI_IMAGE -n "$NO_INSTANCES" -g "$CLUSTER" -k "$KEY_NAME" -t "$INSTANCE_TYPE" $KERNEL_ARG | grep INSTANCE'
+#rm "$bin"/$USER_DATA_FILE.slave
+

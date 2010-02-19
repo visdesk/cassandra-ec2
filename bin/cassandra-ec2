@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+
+# if no args specified, show usage
+if [ $# = 0 ]; then
+  echo "Usage: cassandra-ec2 COMMAND"
+  echo "where COMMAND is one of:"
+  echo "  start-machines <group> <num slaves>  launch a cluster of EC2 machines prepared for Cassandra"
+  echo "  start-cassandra <group>              start Cassandra on the machines"
+  echo "  terminate-cluster <group>            terminate all Cassandra EC2 instances"
+  echo "  create-image                         create a Cassandra AMI"
+  exit 1
+fi
+
+# get arguments
+COMMAND="$1"
+shift
+
+if [ "$COMMAND" = "create-image" ] ; then
+  . "$bin"/create-cassandra-image $*
+elif [ "$COMMAND" = "start-machines" ] ; then
+  . "$bin"/start-cassandra-machines $*
+elif [ "$COMMAND" = "start-cassandra" ] ; then
+  . "$bin"/start-cassandra-instances $*
+elif [ "$COMMAND" = "terminate-cluster" ] ; then
+  . "$bin"/terminate-cassandra-cluster $*
+fi
+
