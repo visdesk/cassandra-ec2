@@ -58,6 +58,6 @@ AMI_IMAGE=`ec2-describe-images -a | grep $S3_BUCKET | grep $CASSANDRA_VERSION | 
 # Start slaves
 echo "Adding $NO_INSTANCES node(s) to cluster group $CLUSTER with AMI $AMI_IMAGE"
 #ec2-run-instances $AMI_IMAGE -n "$NO_INSTANCES" -g "$CLUSTER" -k "$KEY_NAME" -f "$bin"/$USER_DATA_FILE.slave -t "$INSTANCE_TYPE" -z "$MASTER_ZONE" $KERNEL_ARG | grep INSTANCE | awk '{print $2}'
-ec2-run-instances $AMI_IMAGE -n "$NO_INSTANCES" -g "$CLUSTER" -k "$KEY_NAME" -t "$INSTANCE_TYPE" $KERNEL_ARG | grep INSTANCE'
+ec2-run-instances $AMI_IMAGE -n "$NO_INSTANCES" -g "$CLUSTER" -k "$KEY_NAME" -t "$INSTANCE_TYPE" $KERNEL_ARG | grep INSTANCE | awk '{print $2}'
 #rm "$bin"/$USER_DATA_FILE.slave
 
