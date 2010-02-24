@@ -1,13 +1,11 @@
 Cassandra EC2 
 -------------
-
 This collection of scripts allows you to run Cassandra clusters on Amazon.com's 
 Elastic Compute Cloud (EC2) service described at: http://aws.amazon.com/ec2
 
 
 Getting started
 ---------------
-
 Before you do anything make sure you follow the Amazon setup guide: 
 http://docs.amazonwebservices.com/AWSEC2/latest/GettingStartedGuide/
   
@@ -26,13 +24,12 @@ To start a cluster:
 
 How to contribute
 -----------------
-
 This project is very much in the early days. Feel free to make any changes and contribute them back.
 Check out the code at http://github.com/johanoskarsson/cassandra-ec2
 
 
 Known issues
--------
+------------
 The EC2 instances are *not* suitable for production use. They store the data on the instance itself
 and will disappear when the instance is shut down.
 
