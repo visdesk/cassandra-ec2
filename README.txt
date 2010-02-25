@@ -24,8 +24,12 @@ To start a cluster:
 
 How to contribute
 -----------------
-This project is very much in the early days. Feel free to make any changes and contribute them back.
+Feel free to make any changes and contribute them back. 
 Check out the code at http://github.com/johanoskarsson/cassandra-ec2
+
+If you want to make major changes it would probably be worth
+starting over from http://svn.apache.org/viewvc/hadoop/common/trunk/src/contrib/cloud/
+
 
 
 Known issues
