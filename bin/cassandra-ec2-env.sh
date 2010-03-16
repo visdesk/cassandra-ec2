@@ -43,10 +43,8 @@ SSH_OPTS=`echo -i "$PRIVATE_KEY_PATH" -o StrictHostKeyChecking=no -o ServerAlive
 CASSANDRA_VERSION=trunk
 
 # The Amazon S3 bucket where the Cassandra AMI is stored.
-# The default value is for public images, so can be left if you are using running a public image.
-# Change this value only if you are creating your own (private) AMI
-# so you can store it in a bucket you own.
-S3_BUCKET=cassandra-images
+# Change this value to a bucket where you have permission to write.
+S3_BUCKET=your-own-s3-bucket
 
 # The script to run on instance boot.
 USER_DATA_FILE=cassandra-ec2-init-remote.sh
