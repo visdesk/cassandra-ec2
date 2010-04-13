@@ -46,9 +46,9 @@ if [ "$CASSANDRA_VERSION" == "trunk" ]; then
 else
   echo "Getting from apache mirror"
   wget -nv http://apache.dataphone.se/cassandra/$CASSANDRA_VERSION/apache-cassandra-$CASSANDRA_VERSION-bin.tar.gz || exit -1 
-  tar xzf apache-cassandra-incubating-$CASSANDRA_VERSION-bin.tar.gz || exit -1
-  rm -f apache-cassandra-incubating-$CASSANDRA_VERSION-bin.tar.gz
-  mv apache-cassandra-incubating-$CASSANDRA_VERSION cassandra-$CASSANDRA_VERSION || exit -1
+  tar xzf apache-cassandra-$CASSANDRA_VERSION-bin.tar.gz || exit -1
+  rm -f apache-cassandra-$CASSANDRA_VERSION-bin.tar.gz
+  mv apache-cassandra-$CASSANDRA_VERSION cassandra-$CASSANDRA_VERSION || exit -1
 fi
 
 # Run user data as script on instance startup
