@@ -1,3 +1,10 @@
+NOTE
+----
+This is currently not being maintained. A better option might be 
+http://incubator.apache.org/whirr/
+or
+http://github.com/digitalreasoning/PyStratus
+
 Cassandra EC2 
 -------------
 This collection of scripts allows you to run Cassandra clusters on Amazon.com's 
